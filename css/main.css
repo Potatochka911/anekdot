@@ -1,0 +1,143 @@
+html
+{
+	background-color: #ffe;
+	height: 100%;
+	width: 100%;
+}
+
+body
+{
+	height: 100%;
+	width: 100%;
+}
+
+header
+{
+/*	width: 100%;*/
+	box-sizing: border-box;
+/*	height: 10vh;*/
+	background-color: #f77;
+	padding: 2em;
+	margin: 40px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+main
+{
+	padding: 2em;
+	margin: 40px;
+}
+
+nav
+{
+	display: flex;
+
+}
+.registration.close
+{
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.4);
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+.registration.window
+{
+	z-index: 5;
+	background-color: #ffe;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	translate: -50% -50%;
+	display: none;
+	gap: 10px;
+	flex-direction: row;
+	overflow: hidden;
+	border: 1px solid #000;
+	border-radius: 40px;
+	padding: 10px;
+
+
+	.img
+	{
+		aspect-ratio: 1;
+		height: 275px;
+		background-color: #f77;
+		border-radius: 30px;
+	}
+
+	.functional-block
+	{
+		form{
+			display: flex;
+			flex-direction: column;	
+			gap: 10px;
+			div
+			{
+				display: flex;
+				flex-direction: column;
+				font-weight: 500;
+
+
+				input
+				{
+					height: 1.4em;
+					border-radius: 10px;
+					padding: 0 5px;
+					box-sizing: border-box;
+				}
+
+				div.error
+				{
+					height: 1.4em;
+				}
+			}
+			div.title
+			{
+				font-weight: 600;
+				font-size: 1.2em;
+			}
+		}
+	}
+
+	button.submit
+	{
+		border-radius: 100px;
+	}
+}
+
+input::after
+{
+	top: 0;
+	right: 0;
+	position: absolute;
+	display: block;
+	content: '';
+	height: 1em;
+	aspect-ratio: 1;
+	border-radius: 10px;
+	border: 2px solid #000;
+}
+
+.anek-grid
+{
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	
+	flex-direction: row;
+}
+
+.anek
+{
+	max-width: 300px;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	aspect-ratio: 1;
+	overflow: hidden;
+}
