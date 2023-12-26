@@ -1,48 +1,58 @@
-var request = new XMLHttpRequest();
-request.open("GET", "../json/main.json");
-request.responseType = "json";
-request.send();
+var anekdotesObj;
 
-request.onload = function () {
-	var anekdotes = request.response;
-
-	let anekGridElem = document.querySelector(".anek-grid");
-	for (let i = 0; i < anekdotes.length; i++)
-	{
-		let div = `
-		<div class="anek">
-			<div class="name">
-				${anekdotes[i].name}
-			</div>
-			<div class="content">
-				${anekdotes[i].content}
-			</div>
-		</div>
-		`;
-		anekGridElem.insertAdjacentHTML("beforeend", div) 
-	}
-
-	console.log("Сохранённые данные:")
-	console.log(localStorage.getItem("login"))
-	console.log(localStorage.getItem("email"))
-	console.log(localStorage.getItem("password"))
-}
-
-function accountVisibility(appear) {
-	if (appear) {
-		document.querySelector(".registration.window").style.display = "flex";
-		document.querySelector(".registration.close").style.display = "block";
-	} else {
-		document.querySelector(".registration.window").style.display = "none";
-		document.querySelector(".registration.close").style.display = "none";
-	}
-}
+fetch("../json/anekdots.json")
+	.then(function (response) {
+		return response.json();
+	})
+	.then(function (json) {
+		anekdotesObj = json;
+	})
+	.catch(function (err) {
+		console.log('error: ' + err);
+    })
 
 function sendMail() {
-	var body = "Значаение";
-
-	window.location.href = "mailto:ibw2003@mail.ru?subject=Happy New Year&body=" + body;
+    var link = "mailto:me@example.com"
+             + "?cc=myCCaddress@example.com"
+             + "&subject=" + encodeURIComponent("This is my subject")
+             + "&body=" + 'myText'
+    ;
+    
+    window.location.href = link;
 }
+
+
+function burgerOpen() {
+	document.querySelector(".burger-button").classList.toggle("active");
+	document.querySelectorAll(".registration")[0].classList.toggle("active");
+	document.querySelectorAll(".registration")[1].classList.toggle("active");
+}
+
+function loadCat(cat)
+{
+	let sectionGridElem = document.querySelector(".section.grid");
+	sectionGridElem.innerHTML = "";
+	for (let i = 0; i < anekdotesObj.length; i++)
+	{
+		var div
+		if (cat == anekdotesObj[i].category){
+			div = `
+			<div class="anek">
+				<div class="name">
+					${anekdotesObj[i].name}
+				</div>
+				<div class="content">
+					${anekdotesObj[i].content}
+				</div>
+			</div>
+			`;
+			sectionGridElem.insertAdjacentHTML("beforeend", div)
+		}
+		 
+	}
+}
+
+
 
 let form = document.querySelector("form");
 
@@ -58,17 +68,32 @@ var errorLog = (areaElement, errorText = "") => {
 	}
 }
 
+var userdata = [];
+
 form.addEventListener("submit", (e) => {
 	e.preventDefault();
 	
 	var areas = document.querySelectorAll(".fill-area")
-	// console.log(areas.length)
 	let password = areas[2].querySelector("input").value
-	for (let i = areas.length - 1; i >= 0; i--)
-	{
-
-		// console.log(areas[i].querySelector("input").value.trim().length);
+	
+	var counter = 0;
+	
+	if (areas[0].querySelector("input").value.trim().length < 4){
+		errorLog(areas[0], "Минимум 4 символа");
+	} else {
+		errorLog(areas[0]);
+		localStorage.setItem("login", document.querySelector("input#user-name").value);
+		counter ++;
 	}
+	
+	if (areas[1].querySelector("input").value.trim().length < 4){
+		errorLog(areas[1], "Минимум 4 символа");
+	} else {
+		errorLog(areas[1]);
+		localStorage.setItem("email", document.querySelector("input#Email").value);
+		counter ++;
+	}
+
 	if (password.trim().length < 8)	//Длина пароля
 	{
 		errorLog(areas[2], "Ваш пароль недостаточно длинный");
@@ -80,8 +105,18 @@ form.addEventListener("submit", (e) => {
 		errorLog(areas[2], "Добавьте цифры")
 	} else {
 		errorLog(areas[2])
-		localStorage.setItem("login", document.querySelector("input#user-name").value);
-		localStorage.setItem("email", document.querySelector("input#Email").value);
 		localStorage.setItem("password", document.querySelector("input#Password").value);
+		counter ++;
 	}
+	if (counter == 3) {
+		document.querySelector(".registration.window").innerHTML = `
+		<div> Добро пожаловать!
+		<h3>${localStorage.getItem("login")}</h3>
+		В скором времени на вашу почту 
+		<wa style="color: #059; font-weight: bold;">${localStorage.getItem("email")}</wa>
+		будет выслано письмо для подтверждения аккаунта </div>`;
+		// sendMail();
+	}
+
 });
+

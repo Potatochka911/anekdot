@@ -4,16 +4,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Анекдоты</title>
-	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/main.css?t=2">
 	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fontawesome/5.15.4/css/all.min.css" crossorigin="anonymous"> -->
-	<script src="../js/main.js" defer></script>
+	<script type="text/javascript" src="../js/main.js?t=2" defer></script>
+	<script type="text/javascript" src="../json/anekdots.json"></script>
 </head>
 <body>
-	<div class="registration close" onclick="accountVisibility(false)"></div>
+	<div class="registration close" onclick="burgerOpen()"></div>
 	<div class="registration window">
-		<div class="img">
+		<img class="img" src="../img/ussr.jpg">
 			
-		</div>
+		</img>
 		<div class="functional-block">
 			<form action="" id="form">
 				<div class="title">Sign In</div>
@@ -38,16 +39,39 @@
 			</form>
 		</div>
 	</div>
+
 	<header>
-		<div class="logo">Анекдоты
-		</div>
-		<nav>
+		<a href="main.html" class="logo">Анекдоты
+		</a>
+
+		<!-- <nav>
 			<div onclick="accountVisibility(true)" class="registration" style="cursor: pointer;">Регистрация/вход</div>
-		</nav>
+		</nav> -->
+
+		<div class="burger-button" onclick="burgerOpen()">
+			<div class="line n1"></div>
+			<div class="line n2"></div>
+		</div>
 	</header>
 	
 	<main>
-		<div class="anek-grid">
+		<div class="section grid">
+			<div class="section container" onclick="loadCat('Про Штирлица')">
+				<img src="../img/Штирлиц.jpg" alt="">
+				<div class="name">Про Штирлица</div>
+			</div>
+			<div class="section container" onclick="loadCat('Про Ленина')">
+				<img src="../img/lenin.jpg" alt="">
+				<div class="name">Про Ленина</div>
+			</div>
+			<div class="section container" onclick="loadCat('Про Брежнева')">
+				<img src="../img/brezhnev.jpg" alt="">
+				<div class="name">Про Брежнева</div>
+			</div>
+			<div class="section container" onclick="loadCat('Про Хрущёва')">
+				<img src="../img/khruschev.jpg" alt="">
+				<div class="name">Про Хрущёва</div>
+			</div>
 		</div>
 	</main>
 
